@@ -1,0 +1,1 @@
+Dodac w e.sh tworzenie folderu data
