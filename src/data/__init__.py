@@ -1,1 +1,1 @@
-from .datasets import fmnist, cifar
+from .datasets import fmnist, cifar, half_cifar
