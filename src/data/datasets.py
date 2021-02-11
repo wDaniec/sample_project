@@ -8,8 +8,6 @@ def fmnist(seed=777, batch_size=128, num_workers=8):
     torch.manual_seed(seed)
     fmnist_mean = (0.5,)
     fmnist_std = (0.5,)
-
-    # transformers
     transform = T.Compose([
             T.ToTensor(),
             T.Normalize(fmnist_mean, fmnist_std),

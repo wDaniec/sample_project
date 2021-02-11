@@ -1,9 +1,7 @@
 import torch
 import torch.nn.functional as F
 import torch.optim as optim
-
 from pytorch_lightning import LightningModule
-
 
 class Classifier(LightningModule):
     def __init__(self, model, lr=0.1):
@@ -27,4 +25,3 @@ class Classifier(LightningModule):
     def configure_optimizers(self):
         optimizer = torch.optim.SGD(self.model.parameters(), lr=self.lr)
         return optimizer
-
