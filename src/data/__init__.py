@@ -1,1 +1,1 @@
-from .datasets import fmnist
+from .datasets import fmnist, cifar
