@@ -16,6 +16,7 @@ class Classifier(LightningModule):
         images, target = batch
         output = self(images)
         loss_val = F.cross_entropy(output, target)
+        self.log("loss_val", loss_val, on_step=True)
         return loss_val
 
     def validation_step(self, batch, batch_idx):
