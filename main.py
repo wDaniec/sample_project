@@ -3,12 +3,15 @@ from src.data import half_cifar, cifar
 from src.modules import Classifier
 from pytorch_lightning.loggers import NeptuneLogger
 import pytorch_lightning as pl
-from src import NEPTUNE_TOKEN, NEPTUNE_USER, NEPTUNE_PROJECT
+from src import NEPTUNE_TOKEN, NEPTUNE_USER, NEPTUNE_PROJECT, USE_NEPTUNE
 
 
 def get_trainer(num_epochs):
-    logger = get_logger("sample_experiment")
-    trainer = pl.Trainer(gpus=1, max_epochs=num_epochs, log_every_n_steps=25, logger=logger)
+    loggers = []
+    if USE_NEPTUNE:
+        logger = get_logger("sample_experiment")
+        loggers.append(logger)
+    trainer = pl.Trainer(gpus=1, max_epochs=num_epochs, log_every_n_steps=25, logger=loggers)
     return trainer
 
 def get_logger(experiment_name):
