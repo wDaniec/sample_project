@@ -1,0 +1,6 @@
+import os
+
+USE_NEPTUNE=False
+NEPTUNE_TOKEN = os.environ["NEPTUNE_TOKEN"]
+NEPTUNE_USER = os.environ["NEPTUNE_USER"]
+NEPTUNE_PROJECT = os.environ["NEPTUNE_PROJECT"]
