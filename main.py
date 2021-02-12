@@ -8,6 +8,7 @@ from src import NEPTUNE_TOKEN, NEPTUNE_USER, NEPTUNE_PROJECT
 def train_phase(pl_module, loaders):
     logger = get_logger("sample_experiment")
     trainer = pl.Trainer(gpus=1, max_epochs=10, log_every_n_steps=25, logger=logger)
+    # trainer = pl.Trainer(gpus=1, max_epochs=10, log_every_n_steps=25)
     trainer.fit(pl_module, loaders[0], loaders[1])
 
 def get_logger(experiment_name):
