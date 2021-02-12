@@ -33,6 +33,9 @@ class Classifier(LightningModule):
         optimizer = torch.optim.SGD(self.model.parameters(), lr=self.lr)
         return optimizer
     
+    def on_fit_end(self):
+        self.trainer.current_epoch = 0
+    
     def _accuracy(self, output, target):
         # print(output.shape, target.shape)
         pred = torch.argmax(output, dim=1)

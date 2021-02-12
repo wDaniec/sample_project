@@ -5,11 +5,11 @@ from pytorch_lightning.loggers import NeptuneLogger
 import pytorch_lightning as pl
 from src import NEPTUNE_TOKEN, NEPTUNE_USER, NEPTUNE_PROJECT
 
-def train_phase(pl_module, loaders):
+
+def get_trainer():
     logger = get_logger("sample_experiment")
     trainer = pl.Trainer(gpus=1, max_epochs=10, log_every_n_steps=25, logger=logger)
-    # trainer = pl.Trainer(gpus=1, max_epochs=10, log_every_n_steps=25)
-    trainer.fit(pl_module, loaders[0], loaders[1])
+    return trainer
 
 def get_logger(experiment_name):
     logger = NeptuneLogger(
@@ -18,15 +18,16 @@ def get_logger(experiment_name):
                 experiment_name= experiment_name
         )
     return logger
-    
 
 def main():
-    model = SimpleCNN(100)
-    half_loaders = half_cifar(variant="100")
-    full_loaders = cifar(variant="100")
+    model = SimpleCNN(10)
+    half_loaders = half_cifar(variant="10")
+    full_loaders = cifar(variant="10")
     pl_module = Classifier(model)
-    train_phase(pl_module, half_loaders)
-    train_phase(pl_module, full_loaders)
+    
+    trainer = get_trainer()
+    trainer.fit(pl_module, half_loaders[0], half_loaders[1])
+    trainer.fit(pl_module, full_loaders[0], full_loaders[1])
 
 if __name__ == "__main__":
     main()
