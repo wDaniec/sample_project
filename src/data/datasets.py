@@ -2,7 +2,6 @@ import numpy as np
 import torch
 import torchvision
 import torchvision.transforms as T
-from torch.utils.data.sampler import SubsetRandomSampler
 
 def cifar(variant="10", seed=777, batch_size=128, num_workers=8):
     train_dataset, valid_dataset = get_cifar_dataset(variant, seed, batch_size, num_workers)
@@ -21,10 +20,10 @@ def half_cifar(variant="10", seed=777, batch_size=128, num_workers=8):
     half_length = int(0.5 * train_length)
     subset_indices = torch.randperm(train_length)[:half_length]
 
-    # # napraw ten brzydki kod tutaj
+    train_dataset = torch.utils.data.Subset(train_dataset, subset_indices)
+
     train_loader = torch.utils.data.DataLoader(
-        train_dataset, batch_size=batch_size, shuffle=False, 
-        num_workers=num_workers, sampler=SubsetRandomSampler(subset_indices)
+        train_dataset, batch_size=batch_size, num_workers=num_workers, shuffle=True
     )
     
     valid_loader = torch.utils.data.DataLoader(
