@@ -4,7 +4,7 @@ import torch.optim as optim
 from pytorch_lightning import LightningModule
 
 class Classifier(LightningModule):
-    def __init__(self, model, lr=0.1):
+    def __init__(self, model, lr=0.01):
         super().__init__()
         self.model = model
         self.lr = lr
